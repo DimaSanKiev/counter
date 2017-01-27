@@ -24,7 +24,7 @@ public class HibernateJpaConfig {
     @Autowired
     private DataSource dataSource;
 
-    @Autowired
+    @Autowired(required = false)
     private PersistenceUnitManager persistenceUnitManager;
 
     private Map<String, String> properties = new HashMap<>();
