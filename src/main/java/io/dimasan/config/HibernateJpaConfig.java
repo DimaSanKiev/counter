@@ -60,7 +60,7 @@ public class HibernateJpaConfig {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(EntityManagerFactoryBuilder builder) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder builder) {
         Map<String, Object> vendorProperties = new LinkedHashMap<>();
         vendorProperties.putAll(properties);
 
