@@ -28,7 +28,7 @@ public class User {
 
     private Date dateRegistered;
 
-    private Language lang;
+    private Language lang = Language.EN;
 
     private int failedLoginAttempts = 0;
 
