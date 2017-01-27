@@ -14,10 +14,10 @@ public class UserServiceImpl implements UserService {
 
     // TODO: 28.01.2017 EncryptionService
 
-    private final UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

@@ -13,10 +13,10 @@ import java.util.List;
 @Service
 public class ActivityServiceImpl implements ActivityService {
 
-    private final ActivityRepository activityRepository;
+    private ActivityRepository activityRepository;
 
     @Autowired
-    public ActivityServiceImpl(ActivityRepository activityRepository) {
+    public void setActivityRepository(ActivityRepository activityRepository) {
         this.activityRepository = activityRepository;
     }
 
