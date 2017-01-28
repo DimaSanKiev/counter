@@ -32,7 +32,7 @@ public class User {
 
     private int failedLoginAttempts = 0;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Activity> activities = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)

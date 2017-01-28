@@ -18,9 +18,6 @@ public class Activity {
 
     private Date dateCreated;
 
-    @ManyToOne
-    private User user;
-
     public Integer getId() {
         return id;
     }
@@ -59,13 +56,5 @@ public class Activity {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
