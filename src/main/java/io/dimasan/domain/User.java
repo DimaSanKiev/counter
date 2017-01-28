@@ -126,4 +126,19 @@ public class User {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+
+    public void addRole(Role role) {
+        if (!this.roles.contains(role)) {
+            this.roles.add(role);
+        }
+
+        if (!role.getUsers().contains(this)) {
+            role.getUsers().add(this);
+        }
+    }
+
+    public void removeRole(Role role) {
+        this.roles.remove(role);
+        role.getUsers().remove(this);
+    }
 }
