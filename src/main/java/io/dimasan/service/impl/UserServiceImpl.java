@@ -1,5 +1,6 @@
 package io.dimasan.service.impl;
 
+import io.dimasan.domain.Activity;
 import io.dimasan.domain.User;
 import io.dimasan.repository.UserRepository;
 import io.dimasan.service.UserService;
@@ -52,5 +53,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByName(String name) {
         return userRepository.findByName(name);
+    }
+
+    @Override
+    public List<Activity> findUserActivities(User user) {
+        return null;
     }
 }
