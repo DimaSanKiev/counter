@@ -1,9 +1,11 @@
 package io.dimasan.bootstrap;
 
 import io.dimasan.domain.Activity;
+import io.dimasan.domain.Event;
 import io.dimasan.domain.User;
 import io.dimasan.domain.security.Role;
 import io.dimasan.service.ActivityService;
+import io.dimasan.service.EventService;
 import io.dimasan.service.RoleService;
 import io.dimasan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,6 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +22,7 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
     private ActivityService activityService;
     private UserService userService;
     private RoleService roleService;
+    private EventService eventService;
 
     @Autowired
     public void setActivityService(ActivityService activityService) {
@@ -38,6 +39,11 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
         this.roleService = roleService;
     }
 
+    @Autowired
+    public void setEventService(EventService eventService) {
+        this.eventService = eventService;
+    }
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         loadActivities();
@@ -46,6 +52,7 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
         assignUsersToDefaultRole();
         assignUsersToAdminRole();
         assignActivitiesToUsers();
+        loadEvents();
     }
 
     private void loadActivities() {
@@ -139,6 +146,37 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
         users.get(1).setActivities(adrianaActivities);
         userService.saveOrUpdate(users.get(0));
         userService.saveOrUpdate(users.get(1));
+    }
+
+    private void loadEvents() {
+        List<Activity> activities = (List<Activity>) activityService.listAll();
+        Activity activity1 = activities.stream()
+                .filter(a -> "Coffee".equals(a.getTitle()))
+                .findAny().orElse(null);
+        Activity activity2 = activities.stream()
+                .filter(a -> "Tea".equals(a.getTitle()))
+                .findAny().orElse(null);
+
+        List<User> users = (List<User>) userService.listAll();
+        User userJim = users.stream()
+                .filter(u -> "Jim".equals(u.getName()))
+                .findAny().orElse(null);
+        User userAdriana = users.stream()
+                .filter(u -> "Adriana".equals(u.getName()))
+                .findAny().orElse(null);
+
+        Event event1 = new Event();
+        event1.setUser(userJim);
+        event1.setActivity(activity1);
+        event1.setDate(new Date());
+
+        Event event2 = new Event();
+        event2.setDate(new Date());
+        event2.setUser(userAdriana);
+        event2.setActivity(activity2);
+
+        eventService.saveOrUpdate(event1);
+        eventService.saveOrUpdate(event2);
     }
 
 }
